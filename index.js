@@ -11,10 +11,12 @@ params
   .option('-g, --goods <path>', 'Result file')
   .option('-m, --mark [value]', 'Searchable string')
   .option('-t, --threads <n>', 'Number of threads')
+  .option('-f, --start-from <n>', 'Start from some N')
   .parse(process.argv)
 
 const mark = params.mark || ''
 const threadsCount = params.threads || 1
+let current = params.startFrom || 0
 
 // load files
 const urls = fs.readFileSync(params.urls)
@@ -25,8 +27,6 @@ const paths = fs.readFileSync(params.paths)
         .toString('utf8')
         .split(/\r?\n/)
         .filter(s => s.trim().length !== 0)
-
-let current = 0
 
 const _thread = async function() {
     while (current < urls.length) {
