@@ -1,1 +1,2 @@
-package.jsonnode_modules
+/node_modules/
+/logs/*
